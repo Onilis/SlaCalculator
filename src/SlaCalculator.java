@@ -7,8 +7,10 @@ enum Numerals {
     ARABIC, SLAVA
 }
 
+
 public class SlaCalculator {
     private static final Map<String, String> numbers = new HashMap<>();
+
 
     static {
         numbers.put("1", "I");
@@ -23,11 +25,13 @@ public class SlaCalculator {
         numbers.put("10", "X");
     }
 
+
     private static String calc(String input) throws Exception {
         String[] expression = input.split(" ");
         return typeNumerals(expression[0], expression[2]).equals(Numerals.ARABIC) ? arabicCalc(expression[0], expression[2], expression[1])
                 : romanCalc(expression[0], expression[2], expression[1]);
     }
+
 
     private static Numerals typeNumerals(String value1, String value2) throws Exception {
         if (numbers.containsKey(value1) && numbers.containsKey(value2)) {
@@ -39,6 +43,7 @@ public class SlaCalculator {
             throw new Exception();
         }
     }
+
 
     private static String arabicCalc(String value1, String value2, String sign) throws Exception {
         int i = Integer.parseInt(value1);
@@ -52,6 +57,7 @@ public class SlaCalculator {
         };
     }
 
+
     private static String romanCalc(String value1, String value2, String sign) throws Exception {
         Optional<String> result1 = numbers.entrySet().stream()
                 .filter(entry -> value1.equals(entry.getValue())).map(Map.Entry::getKey)
@@ -62,6 +68,7 @@ public class SlaCalculator {
         int num = Integer.parseInt(arabicCalc(result1.get(), result2.get(), sign));
         return intToRoman(num);
     }
+
 
     private static String intToRoman(int num) throws Exception {
         if (num < 1) throw new Exception();
@@ -76,6 +83,7 @@ public class SlaCalculator {
         }
         return sb.toString();
     }
+
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
